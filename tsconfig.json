@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "outDir": "dist",
     "declaration": true,
     "skipLibCheck": true,
     "moduleResolution": "node",
@@ -16,6 +15,7 @@
     "node_modules",
     "jest.config.ts",
     "src/**/*.spec.ts",
-    "src/**/*.test.ts"
+    "src/**/*.test.ts",
+    "tmp"
   ]
 }

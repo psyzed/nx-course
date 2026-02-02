@@ -1,11 +1,11 @@
-const pluginJs = require('@eslint/js');
-const tseslint = require('typescript-eslint');
+const nx = require('@nx/eslint-plugin');
 
 module.exports = [
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
+  ...nx.configs['flat/base'],
+  ...nx.configs['flat/typescript'],
+  ...nx.configs['flat/javascript'],
   {
-    ignores: ['**/dist', 'eslint.config.cjs'],
+    ignores: ['**/dist', 'eslint.config.cjs', '**/coverage', '**/.nx'],
   },
   {
     files: ['**/*.ts'],

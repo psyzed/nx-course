@@ -2,3 +2,7 @@ dist
 node_modules
 coverage
 .nx
+**/.env
+!**/.env*.example
+tmp
+.env.serve.development

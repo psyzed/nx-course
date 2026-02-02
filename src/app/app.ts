@@ -1,7 +1,7 @@
-import express from 'express';
+import express, { Application } from 'express';
 import { getCoursesController } from './controllers/get-courses';
 
-const app = express();
+const app: Application = express();
 
 app.use(express.json());
 
