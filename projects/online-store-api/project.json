@@ -1,0 +1,71 @@
+{
+  "name": "online-store-api",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "metadata": {
+    "description": "A demo REST api build on to of ExpressJS"
+  },
+  "projectType": "application",
+  "sourceRoot": "{projectRoot}/src",
+  "namedInputs": {
+    "sharedGlobals": [],
+    "default": ["sharedGlobals", "{projectRoot}/**/*"],
+    "production": [
+      "default",
+      "!{projectRoot}/eslint.config.cjs",
+      "!{projectRoot}/README.md",
+      "!{projectRoot}/**/*.spec.[jt]s",
+      "!{projectRoot}/jest.config.ts"
+    ]
+  },
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "main": "{projectRoot}/src/server.ts",
+        "tsConfig": "{projectRoot}/tsconfi.app.json",
+        "outputPath": "{workspaceRoot}/dist"
+      },
+      "cache": true,
+      "inputs": ["production"]
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.ts",
+        "passWithNoTests": true,
+        "codeCoverage": true,
+        "coverageDirectory": "{workspaceRoot}/coverage"
+      },
+      "cache": true,
+      "inputs": ["default", "{workspaceRoot}/jest.preset.cjs"],
+      "outputs": ["{options.coverageDirectory}"]
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "options": {
+        "buildTarget": "build"
+      },
+      "defaultConfiguration": "development",
+      "configurations": {
+        "development": {},
+        "production": {
+          "watch": false,
+          "inspect": false
+        }
+      },
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "online-store-api",
+          "params": "ignore"
+        }
+      ]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "eslintConfig": "{projectRoot}/eslint.config.cjs"
+      }
+    }
+  }
+}

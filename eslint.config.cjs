@@ -7,13 +7,4 @@ module.exports = [
   {
     ignores: ['**/dist', 'eslint.config.cjs', '**/coverage', '**/.nx'],
   },
-  {
-    files: ['**/*.ts'],
-    // Override or add rules here
-    rules: {
-      semi: 'error',
-      quotes: ['error', 'single', { allowTemplateLiterals: true }],
-      'prefer-const': 'error',
-    },
-  },
 ];

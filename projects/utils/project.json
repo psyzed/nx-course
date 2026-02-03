@@ -1,0 +1,51 @@
+{
+  "name": "utils",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "metadata": {
+    "description": "Utility functions"
+  },
+  "projectType": "library",
+  "sourceRoot": "{projectRoot}/src",
+  "namedInputs": {
+    "sharedGlobals": [],
+    "default": ["sharedGlobals", "{projectRoot}/**/*"],
+    "production": [
+      "default",
+      "!{projectRoot}/eslint.config.cjs",
+      "!{projectRoot}/README.md",
+      "!{projectRoot}/**/*.spec.[jt]s",
+      "!{projectRoot}/jest.config.ts"
+    ]
+  },
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "options": {
+        "tsConfig": "{projectRoot}/tsconfig.lib.json",
+        "outputPath": "{workspaceRoot}/dist",
+        "main": "{projectRoot}/src/index.ts"
+      },
+      "cache": true,
+      "inputs": ["production"]
+    },
+
+    "test": {
+      "executor": "@nx/jest:jest",
+      "options": {
+        "jestConfig": "{projectRoot}/jest.config.ts",
+        "passWithNoTests": true,
+        "codeCoverage": true,
+        "coverageDirectory": "{workspaceRoot}/coverage"
+      },
+      "cache": true,
+      "inputs": ["default", "{workspaceRoot}/jest.preset.cjs"],
+      "outputs": ["{options.coverageDirectory}"]
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "eslintConfig": "{projectRoot}/eslint.config.cjs"
+      }
+    }
+  }
+}
